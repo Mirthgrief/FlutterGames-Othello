@@ -1,0 +1,9 @@
+{
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "docker build -t othello ."
+  },
+  "deploy": {
+    "startCommand": "docker run -p $PORT:3000 othello"
+  }
+}
