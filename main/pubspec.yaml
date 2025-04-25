@@ -12,3 +12,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+#declare assets
+flutter:
+  assets:
+    - assets/B_piece.png
+    - assets/W_piece.png
