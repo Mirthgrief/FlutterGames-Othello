@@ -265,9 +265,12 @@ class _OthelloGameState extends State<OthelloGame> {
                     color: Colors.green[100],
                   ),
                   child: Center(
+                    // Inside GridView.builder -> itemBuilder:
                     child: switch (board[row][col]) {
-                      CellState.black => const Icon(Icons.circle, color: Colors.black, size: 36.0),
-                      CellState.white => const Icon(Icons.circle, color: Colors.white, size: 36.0),
+                      //CellState.black => const Icon(Icons.circle, color: Colors.black, size: 36.0),
+                      //CellState.white => const Icon(Icons.circle, color: Colors.white, size: 36.0),
+                      CellState.black => SizedBox(width: 36,height: 36,child: Image.asset('assets/B_Piece.png'),),
+                      CellState.white => SizedBox(width: 36,height: 36,child: Image.asset('assets/W_Piece.png'),),
                       CellState.empty => null,
                     },
                   ),
