@@ -2,11 +2,24 @@
 FROM ubuntu:latest as build
 
 # Install dependencies
-RUN apt-get update && apt-get install -y curl git unzip
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    unzip \
+    xz-utils \
+    libglu1-mesa \
+    build-essential \
+    cmake \
+    ninja-build \
+    pkg-config \
+    libgtk-3-dev
 
 # Install Flutter
 RUN git clone https://github.com/flutter/flutter.git -b stable /flutter
-ENV PATH="/flutter/bin:${PATH}"
+ENV PATH="$PATH:/flutter/bin"
+
+# Verify Flutter installation
+RUN flutter doctor -v
 
 # Copy and build Flutter app
 WORKDIR /app
