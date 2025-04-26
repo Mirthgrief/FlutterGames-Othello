@@ -11,20 +11,18 @@
 </head>
 <body>
   <script>
-    // Loads the Flutter app
-    window.addEventListener('load', function(ev) {
-      // Initialize the Flutter engine
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: async function(engineInitializer) {
-          const appRunner = await engineInitializer.initializeEngine();
-          await appRunner.runApp();
-        }
-      });
+  window.addEventListener('load', function(ev) {
+    _flutter.loader.load({
+      serviceWorker: {
+        serviceWorkerVersion: serviceWorkerVersion,
+      },
+    }).then(function(engineInitializer) {
+      return engineInitializer.initializeEngine();
+    }).then(function(appRunner) {
+      return appRunner.runApp();
     });
-  </script>
+  });
+</script>
   <div id="loading"></div>
 </body>
 </html>
