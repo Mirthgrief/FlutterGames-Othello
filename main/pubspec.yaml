@@ -15,5 +15,5 @@ dev_dependencies:
 #declare assets
 flutter:
   assets:
-    - assets/B_piece.png
-    - assets/W_piece.png
+    - assets/B_Piece.png
+    - assets/W_Piece.png
