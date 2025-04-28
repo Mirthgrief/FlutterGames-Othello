@@ -287,7 +287,7 @@ class _OthelloGameState extends State<OthelloGame> {
           ),
           if (!gameOver)
             Text(
-              'Current player: ${currentPlayer == CellState.black ? 'Black' : 'White'}',
+              'Current player: ${currentPlayer == CellState.black ? 'Chikawa' : 'Shibafat'}',
               style: const TextStyle(fontSize: 20),
             ),
           if (gameOver)
