@@ -49,25 +49,27 @@ class _OthelloGameState extends State<OthelloGame> {
   }
 
   void makeMove(int row, int col) {
-    if (gameOver) return;
+    if (gameOver || currentPlayer != CellState.black) return;
 
     if (board[row][col] == CellState.empty && isValidMove(row, col, currentPlayer)) {
       setState(() {
         board[row][col] = currentPlayer;
         flipPieces(row, col, currentPlayer);
-        currentPlayer = (currentPlayer == CellState.black) ? CellState.white : CellState.black;
-        if (currentPlayer == CellState.white) {
-          computerMove();
-        }
+        currentPlayer = CellState.white; // Switch to computer
       });
 
-      if (isBoardFull() || !canMove(CellState.black) && !canMove(CellState.white)) {
+      if (isBoardFull() || (!canMove(CellState.black) && !canMove(CellState.white))) {
         endGame();
-      } else if (!canMove(currentPlayer)) {
-        // Skip turn if the current player can't move
-        currentPlayer = (currentPlayer == CellState.black) ? CellState.white : CellState.black;
-        if (currentPlayer == CellState.white) {
+      } else if (canMove(CellState.white)) {
+        Future.delayed(Duration(milliseconds: 700), () {
           computerMove();
+        });
+      } else {
+        setState(() {
+          currentPlayer = CellState.black; // Switch back to player if computer can't move
+        });
+        if (!canMove(CellState.black)) {
+          endGame();
         }
       }
     }
@@ -77,7 +79,7 @@ class _OthelloGameState extends State<OthelloGame> {
     if (gameOver) return;
 
     if (canMove(CellState.white)) {
-      // Find the best move for the computer (white)
+      // Find all possible moves for the computer (white)
       List<List<int>> possibleMoves = [];
       for (int i = 0; i < 6; i++) {
         for (int j = 0; j < 6; j++) {
@@ -88,7 +90,7 @@ class _OthelloGameState extends State<OthelloGame> {
       }
 
       if (possibleMoves.isNotEmpty) {
-        // Randomly select a move from possible moves for computer.
+        // Randomly select a move from possible moves
         Random random = Random();
         int moveIndex = random.nextInt(possibleMoves.length);
         int row = possibleMoves[moveIndex][0];
@@ -103,13 +105,13 @@ class _OthelloGameState extends State<OthelloGame> {
       }
     }
 
-    if (isBoardFull() || !canMove(CellState.black) && !canMove(CellState.white)) {
+    // Check if the game is over after the computer's move
+    if (isBoardFull() || (!canMove(CellState.black) && !canMove(CellState.white))) {
       endGame();
-    } else if (!canMove(currentPlayer)) {
-      currentPlayer = (currentPlayer == CellState.black) ? CellState.white : CellState.black;
     }
   }
 
+  // The rest of the code (isValidMove, flipPieces, getOpponent, canMove, isBoardFull, endGame, resetGame, build) remains unchanged
   bool isValidMove(int row, int col, CellState player) {
     if (row < 0 || row >= 6 || col < 0 || col >= 6 || board[row][col] != CellState.empty) {
       return false;
@@ -265,7 +267,6 @@ class _OthelloGameState extends State<OthelloGame> {
                     color: Colors.green[100],
                   ),
                   child: Center(
-                    // Inside GridView.builder -> itemBuilder:
                     child: switch (board[row][col]) {
                       CellState.black => SizedBox(
                           width: 36,
