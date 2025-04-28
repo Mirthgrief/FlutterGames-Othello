@@ -212,9 +212,9 @@ class _OthelloGameState extends State<OthelloGame> {
     setState(() {
       gameOver = true;
       if (blackCount > whiteCount) {
-        winnerMessage = 'Black wins! ($blackCount - $whiteCount)';
+        winnerMessage = 'Chikawa wins! ($blackCount - $whiteCount)';
       } else if (whiteCount > blackCount) {
-        winnerMessage = 'White wins! ($whiteCount - $blackCount)';
+        winnerMessage = 'Shibafat wins! ($whiteCount - $blackCount)';
       } else {
         winnerMessage = 'It\'s a draw!';
       }
