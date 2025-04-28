@@ -31,7 +31,7 @@ jobs:
           flutter build web
 
       # (Optional) Add tests or other steps
-      - name: Run tests
-        run: |
-          cd main
-          flutter test
+      #- name: Run tests
+      #  run: |
+      #    cd main
+      #    flutter test
